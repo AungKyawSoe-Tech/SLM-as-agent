@@ -14,7 +14,6 @@ The trick is to expose the model as an API that looks like OpenAI’s endpoint, 
 1.  Run the model with a lightweight local inference engine (e.g., Ollama, vLLM, or Hugging‑Face Inference Server).
 2.  Create/modify an existing VS Code extension so it talks to your local server.
 
-## Install Olama and use the model
 
 
 
@@ -22,10 +21,24 @@ The trick is to expose the model as an API that looks like OpenAI’s endpoint, 
 |----------|--------------------|--------------|-------|------|
 **Ollama**  | ~12 GB VRAM (or 40 GB+ if you want low‑latency) |  Zero‑config, auto‑downloads models, supports  `chat/completions`. |  Not as fast as a fully custom vLLM deployment. |
 
-Can test whether Olama is running by following command:
+## Install Olama and use the model
+
+curl -fsSL https://ollama.ai/install.sh | sh
+
+Test whether Olama is running by following command:
 
 http://localhost:11434
 
+ollama pull gpt-oss:20b
+
+ollama serve
+
+curl -X POST http://localhost:11434/api/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-oss:20b",
+    "messages": [{"role":"user","content":"Explain recursion in Python."}]
+  }'
 
 ## Workflow diagrams
 
