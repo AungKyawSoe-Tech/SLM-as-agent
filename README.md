@@ -2,32 +2,28 @@
 
 ## Introduction
 
-I want to use a SLM, **GPT-OSS-20b** from OpenAI so that when I use VS Code. How can I use this locally stored pre-trained LLM instead of GitHub CoPilot?
+I started this repository to record step-by-step guide how do I set up ChatGpt on my lapop. I want to use a SLM, **GPT-OSS-20b** from OpenAI on my laptop, so that when I use VS Code instead of being limited by my inability to use GPT. It is to run a locally running **20 B GPT‑OSS** model (or any LLM that runs on your PC or laptop machine) and hook it into VS Code instead of using cloud‑based GitHub Copilot.
 
-
-## Create files and folders
-
-We can run a local **20 B GPT‑OSS** model (or any LLM that runs on your machine) and hook it into VS Code instead of using cloud‑based GitHub Copilot.
-
-The trick is to expose the model as an API that looks like OpenAI’s endpoint, then point a VS Code extension at that local endpoint. Below are two practical ways to do this:
+There are two steps, first is to expose the model as an API that looks like OpenAI’s endpoint, then point a VS Code extension at that local endpoint. Below are two practical ways to do this:
 
 1.  Run the model with a lightweight local inference engine (e.g., Ollama, vLLM, or Hugging‑Face Inference Server).
 2.  Create/modify an existing VS Code extension so it talks to your local server.
-
-
 
 
 | Option |  What you need |  Typical RAM / GPU |  Pros | Cons |
 |----------|--------------------|--------------|-------|------|
 **Ollama**  | ~12 GB VRAM (or 40 GB+ if you want low‑latency) |  Zero‑config, auto‑downloads models, supports  `chat/completions`. |  Not as fast as a fully custom vLLM deployment. |
 
-## Install Olama and use the model
+
+## Install Olama and use the Gpt-Oss:20b model
+
+Open WSL (Windows Subsystem for Linux) in Administrator mode then type following command:
 
 curl -fsSL https://ollama.ai/install.sh | sh
 
-Test whether Olama is running by following command:
+Next, test whether Olama is running by following command:
 
-http://localhost:11434
+ollama list
 
 ollama pull gpt-oss:20b
 
@@ -41,7 +37,7 @@ sudo lsof -i :11434
 
 sudo systemctl stop ollama
 
-### Generating a response
+### Generating a response using curl
 
 curl http://localhost:11434/api/generate -H "Content-Type: application/json" -d '{
   "model": "gpt-oss:20b",
@@ -73,12 +69,11 @@ The return from gpt-oss:20b can be below:
 
 [Reference : Ollama API](https://github.com/ollama/ollama)
 
-Go to VS Code, on the lower right corner click "Manage Models" then type Ollama and then you should see gpt-oss:20b, select it.
-Then select that model for coding. The screen shot below shows how it can be done:
+
 
 ## How to set up VS Code to use SLM (gpt-oss:20b in Ollama)
 
-
+Go to VS Code, on the lower right corner click "Manage Models" then type Ollama and then you should see gpt-oss:20b, select it. Then select that model for coding. The screen shot below shows how it can be done:
 
 ![How to use SLM](SLM.png "Small Language Model")
 
