@@ -10,10 +10,11 @@ There are two steps, first is to expose the model as an API that looks like Open
 2.  Create/modify an existing VS Code extension so it talks to your local server.
 
 
-| Option |  What you need |  Typical RAM / GPU |  Pros | Cons |
-|----------|--------------------|--------------|-------|------|
+| Option |  Typical RAM / GPU needed |  Pros | Cons |
+|----------|----------------------------------|-------|------|
 **Ollama**  | ~12 GB VRAM (or 40 GB+ if you want low‑latency) |  Zero‑config, auto‑downloads models, supports  `chat/completions`. |  Not as fast as a fully custom vLLM deployment. |
 
+In my case, my set up is on an i7 CPU-powered 12th generation laptop without GPU and 40 GB of RAM.
 
 ## Install Olama and use the Gpt-Oss:20b model
 
