@@ -9,9 +9,11 @@
 # pip install sentence-transformers
 # pip install "-U" langchain-huggingface
 
+
 # populate this folder \\wsl.localhost\Ubuntu\home\user\Documents with books
 # while the cloned repo is here \\wsl.localhost\Ubuntu\home\user\SLM-as-agent
 # run as python3 rag/train.py
+
 
 # Import
 
@@ -102,14 +104,14 @@ loaded_documents = []
 load_text_documents('../Documents', loaded_documents)
 load_pdf_documents('../Documents', loaded_documents)
 
-# Split text into semantic chunks  
-text_splitter = SemanticChunker(HuggingFaceEmbeddings())  
-documents = text_splitter.split_documents(loaded_documents)  
+for doc in loaded_documents :
+    # Split text into semantic chunks 
+    text_splitter = SemanticChunker(HuggingFaceEmbeddings())  
+    documents = text_splitter.split_documents(doc)  
 
-
-# Generate embeddings  
-embeddings = HuggingFaceEmbeddings()  
-vector_store = FAISS.from_documents(documents, embeddings)  
+    # Generate embeddings  
+    embeddings = HuggingFaceEmbeddings()  
+    vector_store = FAISS.from_documents(documents, embeddings)  
 
 # Connect retriever  
 retriever = vector_store.as_retriever(search_kwargs={"k": 3})  # Fetch top 3 chunks  
