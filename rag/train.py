@@ -8,11 +8,11 @@
 # pip install pdfplumber
 # pip install sentence-transformers
 # pip install "-U" langchain-huggingface
-
+# pip install faiss-cpu
 
 # populate this folder \\wsl.localhost\Ubuntu\home\user\Documents with books
 # while the cloned repo is here \\wsl.localhost\Ubuntu\home\user\SLM-as-agent
-# run as python3 rag/train.py
+# run as "python3 rag/train.py"
 
 
 # Import
@@ -113,10 +113,14 @@ for doc in loaded_documents :
     embeddings = HuggingFaceEmbeddings()  
     vector_store = FAISS.from_documents(documents, embeddings)  
 
+print("RAG system has processed loaded documents!")
+
 # Connect retriever  
 retriever = vector_store.as_retriever(search_kwargs={"k": 3})  # Fetch top 3 chunks  
 
-llm = Ollama(model="deepseek-r1:1.5b")  # Our 1.5B parameter model  
+llm = Ollama(model="deepseek-r1:1.5b")  
+
+print("Craft the prompt template below:")
 
 # Craft the prompt template  
 prompt = """  
@@ -152,6 +156,8 @@ qa = RetrievalQA(
 
 # Streamlit UI  
 # May be next step is to make this model run as a server and send queries wih curl
+
+print("Asking RAG a question:")
 
 user_input = st.text_input("Ask your RAG a question:")  
 
