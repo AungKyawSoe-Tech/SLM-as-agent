@@ -1,20 +1,3 @@
-# Reference
-# https://apidog.com/blog/rag-deepseek-r1-ollama/
-
-# python3 -m venv venv312; source venv312/bin/activate
-# pip install langchain_community
-# pip install langchain_experimental
-# pip install streamlit
-# pip install pdfplumber
-# pip install sentence-transformers
-# pip install "-U" langchain-huggingface
-# pip install faiss-cpu
-
-# populate this folder \\wsl.localhost\Ubuntu\home\user\Documents with books
-# while the cloned repo is here \\wsl.localhost\Ubuntu\home\user\SLM-as-agent
-# run as "python3 rag/train.py"
-
-
 # Import
 
 import os
@@ -104,6 +87,8 @@ loaded_documents = []
 load_text_documents('../Documents', loaded_documents)
 load_pdf_documents('../Documents', loaded_documents)
 
+doc_counter = 0
+
 for doc in loaded_documents :
     # Split text into semantic chunks 
     text_splitter = SemanticChunker(HuggingFaceEmbeddings())  
@@ -112,6 +97,9 @@ for doc in loaded_documents :
     # Generate embeddings  
     embeddings = HuggingFaceEmbeddings()  
     vector_store = FAISS.from_documents(documents, embeddings)  
+
+    print("done processing doc #" + str(doc_counter))
+    doc_counter = doc_counter + 1
 
 print("RAG system has processed loaded documents!")
 
