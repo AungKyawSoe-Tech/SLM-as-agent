@@ -79,6 +79,13 @@ Go to VS Code, on the lower right corner click "Manage Models" then type Ollama 
 ![How to use SLM](SLM.png "Small Language Model")
 
 
+## RAG
+
+RAG or Retrieval-Augmented Generation, is an AI framework that enhances large language models (LLMs) by connecting them to external knowledge bases to provide more accurate, current, and domain-specific information. 
+
+Extending this SLM work to RAG can be read in the following document [RAG How-To](rag/Rag.md)
+
+
 ## Workflow diagrams
 
 Render UML diagrams using [Mermaid](https://mermaidjs.github.io/). For example, sequence diagram below will show workflow:
